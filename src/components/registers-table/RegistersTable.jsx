@@ -1,3 +1,6 @@
+// Hooks
+import { useStoreForApp } from '../../store';
+
 // Components
 
 const registers = [
@@ -25,10 +28,12 @@ const registers = [
 ];
 
 const RegistersTable = ({}) => {
+	const list = useStoreForApp((store) => store.lastRegisters);
+
 	return (
 		<>
-			<div class="my-4 w-full border-2 border-base-300 rounded-lg">
-				<table class="table table-zebra w-full">
+			<div className="w-full my-4 border-2 rounded-lg border-base-300">
+				<table className="table w-full table-zebra">
 					<thead>
 						<tr>
 							<th>Fecha</th>
@@ -37,16 +42,16 @@ const RegistersTable = ({}) => {
 						</tr>
 					</thead>
 					<tbody>
-						{registers.map((register) => {
+						{list.map((register) => {
 							return (
 								<tr
 									key={register.id}
 									className={`${
-										register.tipo === 'Venta' ? 'text-success' : 'text-error'
+										register.type == 1 ? 'text-success' : 'text-error'
 									}`}
 								>
-									<td>{register.fecha}</td>
-									<td>{register.concepto}</td>
+									<td>{register.date}</td>
+									<td>{register.concept}</td>
 									<td>{register.total}</td>
 								</tr>
 							);

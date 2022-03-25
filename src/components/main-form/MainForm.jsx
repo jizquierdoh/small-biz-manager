@@ -1,4 +1,12 @@
+// Imports
+import { useStoreForApp } from '../../store';
+import { v4 as uuidv4 } from 'uuid';
+
+// Hooks
+import { useForm } from 'react-hook-form';
+
 // Components
+import CurrencyInput from 'react-currency-input-field';
 
 const registerTypes = [
 	{
@@ -17,52 +25,115 @@ const currency = {
 };
 
 const MainForm = () => {
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+		reset,
+		setValue,
+	} = useForm();
+
+	const onSubmit = (formData) => {
+		const newRegister = { ...formData, id: uuidv4() };
+		addRegister(newRegister);
+		reset();
+	};
+
+	const addRegister = useStoreForApp((store) => store.addRegister);
+
 	return (
 		<>
 			<div>
-				<form>
-					<div class="card w-9/12 mx-auto mt-2 bg-white bg-opacity-20 drop-shadow-xl">
-						<div class="card-body">
-							<div class="form-control ">
-								<label class="label">
-									<span class="label-text">Fecha:</span>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div className="w-9/12 mx-auto mt-2 bg-white card bg-opacity-20 drop-shadow-xl">
+						<div className="card-body">
+							{/* date field*/}
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Fecha:</span>
 								</label>
 								<input
 									type="date"
 									placeholder="Fecha del registro"
-									class="input input-bordered "
+									className={`input input-bordered ${
+										errors.date && 'border-error'
+									}`}
+									{...register('date', { required: true })}
 								/>
-								<label class="label">
-									<span class="label-text">Tipo de Registro:</span>
+								<span className="text-xs text-error">
+									{errors.date?.type === 'required' && 'Requerido'}
+								</span>
+							</div>
+							{/* concept field*/}
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Concepto:</span>
 								</label>
-								<select class="select select-bordered">
-									<option disabled selected>
-										Seleccionar
-									</option>
+								<textarea
+									{...register('concept', { required: true })}
+									className={`h-24 textarea textarea-bordered ${
+										errors.concept && 'border-error'
+									}`}
+									placeholder="Concepto del registro"
+								></textarea>
+								<span className="text-xs text-error">
+									{errors.concept?.type === 'required' && 'Requerido'}
+								</span>
+							</div>
+							{/* type field*/}
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Tipo de Registro:</span>
+								</label>
+								<select
+									defaultValue="Seleccionar"
+									className={`select select-bordered ${
+										errors.type && 'border-error'
+									}`}
+									{...register('type', { required: true })}
+								>
+									<option value="">Seleccionar</option>
 									{registerTypes.map((registerType) => {
 										return (
-											<option value={registerType.id}>
+											<option key={registerType.id} value={registerType.id}>
 												{registerType.name}
 											</option>
 										);
 									})}
 								</select>
-								<label class="label">
-									<span class="label-text">Valor Total:</span>
+								<span className="text-xs text-error">
+									{errors.type?.type === 'required' && 'Requerido'}
+								</span>
+							</div>
+							{/* total field*/}
+							<div className="form-control">
+								<label className="label">
+									<span className="label-text">Valor Total:</span>
 								</label>
-								<label class="input-group">
+								<label
+									className={`input-group ${
+										errors.total && 'border rounded-lg border-error'
+									}`}
+								>
 									<span>
 										{currency.code}&nbsp;{currency.symbol}
 									</span>
-									<input
-										type="number"
-										step="0.10"
-										placeholder="0,00.00"
-										class="input input-bordered w-full"
+									<CurrencyInput
+										className="w-full input input-bordered"
+										placeholder="Valor del registro"
+										allowDecimals={false}
+										decimalSeparator=","
+										groupSeparator="."
+										{...register('total', { required: true })}
+										onValueChange={(value) => setValue('total', value)}
 									/>
 								</label>
+
+								<span className="text-xs text-error">
+									{errors.total?.type === 'required' && 'Requerido'}
+								</span>
 							</div>
-							<button class="btn btn-primary btn-block">Registrar</button>
+							<button className="btn btn-primary btn-block">Registrar</button>
 						</div>
 					</div>
 				</form>

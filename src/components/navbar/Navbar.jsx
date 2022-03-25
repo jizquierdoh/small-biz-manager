@@ -16,9 +16,9 @@ const Navbar = ({}) => {
 								className="inline-block w-6 h-6 stroke-current"
 							>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									d="M4 6h16M4 12h16M4 18h16"
 								></path>
 							</svg>
@@ -31,7 +31,7 @@ const Navbar = ({}) => {
 								<a>
 									Jan von Steinberg
 									<svg
-										class="fill-current"
+										className="fill-current"
 										xmlns="http://www.w3.org/2000/svg"
 										width="20"
 										height="20"
