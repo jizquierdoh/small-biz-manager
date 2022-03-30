@@ -1,7 +1,4 @@
-// Components
-import AppContent from '../app-content/AppContent';
-
-const Navbar = ({}) => {
+const Navbar = ({ children }) => {
 	return (
 		<>
 			<input id="drawerApp" type="checkbox" className="drawer-toggle" />
@@ -52,7 +49,7 @@ const Navbar = ({}) => {
 						</ul>
 					</div>
 				</nav>
-				<AppContent />
+				{children}
 			</div>
 		</>
 	);

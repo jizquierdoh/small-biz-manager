@@ -1,6 +1,7 @@
 // Imports
 import { useStoreForApp } from '../../store';
 import { v4 as uuidv4 } from 'uuid';
+import { addRegister } from '../../services';
 
 // Hooks
 import { useForm } from 'react-hook-form';
@@ -35,11 +36,12 @@ const MainForm = () => {
 
 	const onSubmit = (formData) => {
 		const newRegister = { ...formData, id: uuidv4() };
+		// addRegister(newRegister);
 		addRegister(newRegister);
 		reset();
 	};
 
-	const addRegister = useStoreForApp((store) => store.addRegister);
+	// const addRegister = useStoreForApp((store) => store.addRegister);
 
 	return (
 		<>

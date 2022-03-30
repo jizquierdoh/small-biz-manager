@@ -1,5 +1,11 @@
 import create from 'zustand';
-import { devtools, persist } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware'
+
+const setRegistersList = (set, list) => {
+  set(() => ({
+    lastRegisters: list
+  }), false, 'setRegistersList');
+};
 
 const addRegister = (set, register) => {
   set(state => ({
@@ -9,15 +15,11 @@ const addRegister = (set, register) => {
 
 const store = create(
   devtools(
-    persist(
-      (set) => ({
-        lastRegisters: [],
-        addRegister: register => addRegister(set, register)
-      }),
-      {
-        name: 'small-biz-store'
-      }
-    )
+    (set) => ({
+      lastRegisters: [],
+      setRegistersList: list => setRegistersList(set, list),
+      addRegister: register => addRegister(set, register)
+    })
   )
 );
 

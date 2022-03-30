@@ -1,34 +1,31 @@
 // Hooks
+import { useEffect } from 'react';
 import { useStoreForApp } from '../../store';
 
-// Components
+// Services
+import * as DataService from '../../services';
 
-const registers = [
-	{
-		id: 1,
-		fecha: '20-Mayo-2021',
-		concepto: 'Ventas día',
-		total: 'COP $ 1.200.000',
-		tipo: 'Venta',
-	},
-	{
-		id: 2,
-		fecha: '20-Mayo-2021',
-		concepto: 'Factura pagada',
-		total: 'COP $ -520.000',
-		tipo: 'Gasto',
-	},
-	{
-		id: 3,
-		fecha: '20-Mayo-2021',
-		concepto: 'Pago arriendo',
-		total: 'COP $ -2.310.000',
-		tipo: 'Gasto',
-	},
-];
+const lastRegisters = 5;
 
 const RegistersTable = ({}) => {
 	const list = useStoreForApp((store) => store.lastRegisters);
+	const setRegistersList = useStoreForApp((store) => store.setRegistersList);
+
+	useEffect(async () => {
+		const unsubscribe = DataService.observeRegisters(
+			lastRegisters,
+			(querySnapshot) => {
+				const registers = querySnapshot.docs.map((reg) => {
+					return { ...reg.data(), id: reg.id };
+				});
+
+				setRegistersList(registers);
+			},
+			(error) => console.error(error)
+		);
+
+		return unsubscribe;
+	}, []);
 
 	return (
 		<>
