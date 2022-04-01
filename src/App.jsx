@@ -9,6 +9,7 @@ import Drawer from './components/drawer/Drawer';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import Admin from './pages/admin/Admin';
+import Reports from './pages/reports/Reports';
 
 const App = () => {
 	return (
@@ -21,6 +22,9 @@ const App = () => {
 						</Route>
 						<Route path="/admin">
 							<Admin />
+						</Route>
+						<Route path="/reports">
+							<Reports />
 						</Route>
 					</Switch>
 				</Navbar>

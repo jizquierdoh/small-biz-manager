@@ -1,12 +1,12 @@
 // Components
-import AppContent from "../../components/app-content/AppContent";
+import Main from '../../components/main/Main';
 
-const Home = ({ }) => {
-  return (
-    <>
-      <AppContent />
-    </>
-  );
-}
+const Home = ({}) => {
+	return (
+		<>
+			<Main />
+		</>
+	);
+};
 
 export default Home;

@@ -12,7 +12,7 @@ const Drawer = ({}) => {
 					</Link>
 				</li>
 				<li>
-					<Link href="/reports">
+					<Link href="/admin">
 						<a>Datos del Negocio</a>
 					</Link>
 				</li>

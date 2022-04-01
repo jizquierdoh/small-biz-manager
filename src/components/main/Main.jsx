@@ -2,7 +2,7 @@
 import MainForm from '../main-form/MainForm';
 import RegistersTable from '../registers-table/RegistersTable';
 
-const AppContent = ({}) => {
+const Main = ({}) => {
 	return (
 		<>
 			<main className="w-full p-2">
@@ -13,4 +13,4 @@ const AppContent = ({}) => {
 	);
 };
 
-export default AppContent;
+export default Main;

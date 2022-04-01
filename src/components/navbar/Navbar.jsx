@@ -1,3 +1,5 @@
+import briefcaseIcon from '../../assets/briefcase-icon.svg';
+
 const Navbar = ({ children }) => {
 	return (
 		<>
@@ -21,7 +23,10 @@ const Navbar = ({ children }) => {
 							</svg>
 						</label>
 					</div>
-					<div className="flex-1 px-2 mx-2">SMALLBIZ APP</div>
+					<div className="flex-1">
+						<img src={briefcaseIcon} alt="App Logo" width="38px" />
+						&nbsp; SMALLBIZ APP
+					</div>
 					<div className="flex-none lg:block">
 						<ul className="menu menu-horizontal">
 							<li tabIndex="0">
