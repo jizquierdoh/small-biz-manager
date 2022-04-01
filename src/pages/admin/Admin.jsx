@@ -1,7 +1,10 @@
 const Admin = ({}) => {
 	return (
 		<>
-			<h1>Admin</h1>
+			<div className="w-full p-4">
+				<h1 className="text-2xl">Administration</h1>
+				<div></div>
+			</div>
 		</>
 	);
 };

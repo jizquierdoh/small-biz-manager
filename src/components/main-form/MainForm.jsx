@@ -1,5 +1,4 @@
 // Imports
-import { useStoreForApp } from '../../store';
 import { v4 as uuidv4 } from 'uuid';
 import { addRegister } from '../../services';
 
@@ -36,12 +35,9 @@ const MainForm = () => {
 
 	const onSubmit = (formData) => {
 		const newRegister = { ...formData, id: uuidv4() };
-		// addRegister(newRegister);
 		addRegister(newRegister);
 		reset();
 	};
-
-	// const addRegister = useStoreForApp((store) => store.addRegister);
 
 	return (
 		<>
@@ -135,7 +131,11 @@ const MainForm = () => {
 									{errors.total?.type === 'required' && 'Requerido'}
 								</span>
 							</div>
-							<button className="btn btn-primary btn-block">Registrar</button>
+							<button
+								className="border border-black shadow btn btn-primary btn-block"
+							>
+								Registrar
+							</button>
 						</div>
 					</div>
 				</form>

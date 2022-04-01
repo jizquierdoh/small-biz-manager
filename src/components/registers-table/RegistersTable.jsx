@@ -11,7 +11,7 @@ const RegistersTable = ({}) => {
 	const list = useStoreForApp((store) => store.lastRegisters);
 	const setRegistersList = useStoreForApp((store) => store.setRegistersList);
 
-	useEffect(async () => {
+	useEffect(() => {
 		const unsubscribe = DataService.observeRegisters(
 			lastRegisters,
 			(querySnapshot) => {
@@ -24,7 +24,9 @@ const RegistersTable = ({}) => {
 			(error) => console.error(error)
 		);
 
-		return unsubscribe;
+		return () => {
+			unsubscribe();
+		};
 	}, []);
 
 	return (
