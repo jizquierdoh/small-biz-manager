@@ -12,7 +12,7 @@ const RegistersTable = ({}) => {
 	const setRegistersList = useStoreForApp((store) => store.setRegistersList);
 
 	useEffect(() => {
-		const unsubscribe = DataService.observeRegisters(
+		const unsubscribe = DataService.streamRegisters(
 			lastRegisters,
 			(querySnapshot) => {
 				const registers = querySnapshot.docs.map((reg) => {

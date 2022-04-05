@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware'
 
 const setRegistersList = (set, list) => {
   set(() => ({
-    lastRegisters: list
+    lastRegisters: list ?? []
   }), false, 'setRegistersList');
 };
 
@@ -13,12 +13,28 @@ const addRegister = (set, register) => {
   }), false, 'addRegister');
 };
 
+const setBusinessesList = (set, list) => {
+  set(() => ({
+    businesses: list ?? []
+  }), false, 'setBusinessesList'
+  );
+};
+
+const addBusiness = (set, business) => {
+  set(state => ({
+    businesses: [...state.businesses, business]
+  }), false, 'addBusiness');
+};
+
 const store = create(
   devtools(
     (set) => ({
       lastRegisters: [],
+      businesses: [],
       setRegistersList: list => setRegistersList(set, list),
-      addRegister: register => addRegister(set, register)
+      addRegister: register => addRegister(set, register),
+      setBusinessesList: list => setBusinessesList(set, list),
+      addBusiness: business => addBusiness(set, business)
     })
   )
 );

@@ -13,14 +13,37 @@ const addRegister = async (register) => {
 
 const getRegisters = async (howMany) => {
   const regCollection = collection(db, 'registers');
-  const q = query(regCollection, orderBy('createdAt', 'desc'), limit(howMany));
-  return await getDocs(q);
+  const registerQuery = query(regCollection, orderBy('createdAt', 'desc'), limit(howMany));
+  return await getDocs(registerQuery);
 };
 
-const observeRegisters = (howMany, snapshot, error) => {
+const streamRegisters = (howMany, snapshot, error) => {
   const regCollection = collection(db, 'registers');
-  const q = query(regCollection, orderBy('date', 'desc'), limit(10));
-  return onSnapshot(q, snapshot, error);
+  const registersQuery = query(regCollection, orderBy('date', 'desc'), limit(howMany));
+  return onSnapshot(registersQuery, snapshot, error);
 };
 
-export { getRegisters, addRegister, observeRegisters };
+const addBusiness = async (business) => {
+  const bizCollection = collection(db, 'businesses');
+  return await addDoc(
+    bizCollection,
+    {
+      ...business,
+      createdAt: Timestamp.now()
+    }
+  );
+};
+
+const streamBusinesses = (snapshot, error) => {
+  const businessCollection = collection(db, 'businesses');
+  const businessQuery = query(businessCollection, orderBy('createdAt', 'desc'));
+  return onSnapshot(businessQuery, snapshot, error);
+};
+
+export {
+  getRegisters,
+  addRegister,
+  streamRegisters,
+  addBusiness,
+  streamBusinesses
+};
