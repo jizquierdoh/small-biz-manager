@@ -26,15 +26,24 @@ const addBusiness = (set, business) => {
   }), false, 'addBusiness');
 };
 
+const setCurrentUser = (set, user) => {
+  set(() => ({
+    currentUser: user
+  }), false, 'setCurrentUser');
+};
+
 const store = create(
   devtools(
     (set) => ({
+      currentUser: null,
+      selectedBusinessId: null,
       lastRegisters: [],
       businesses: [],
       setRegistersList: list => setRegistersList(set, list),
       addRegister: register => addRegister(set, register),
       setBusinessesList: list => setBusinessesList(set, list),
-      addBusiness: business => addBusiness(set, business)
+      addBusiness: business => addBusiness(set, business),
+      setCurrentUser: user => setCurrentUser(set, user)
     })
   )
 );

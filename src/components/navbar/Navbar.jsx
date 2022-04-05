@@ -1,6 +1,50 @@
+// Imports
+import {
+	getAuth,
+	signInWithPopup,
+	signOut,
+	GoogleAuthProvider,
+} from 'firebase/auth';
+import { useStoreForApp } from '../../store';
+
+// Icons
 import briefcaseIcon from '../../assets/briefcase-icon.svg';
 
 const Navbar = ({ children }) => {
+	const [currentUser, setCurrentUser] = useStoreForApp((store) => [
+		store.currentUser,
+		store.setCurrentUser,
+	]);
+
+	const auth = getAuth();
+	auth.languageCode = 'es';
+	const provider = new GoogleAuthProvider();
+
+	const signIn = () => {
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				const user = result.user;
+				setCurrentUser({
+					email: user.email,
+					id: user.uid,
+					name: user.displayName,
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const signOutUser = () => {
+		signOut(auth)
+			.then(() => {
+				setCurrentUser(null);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+
 	return (
 		<>
 			<input id="drawerApp" type="checkbox" className="drawer-toggle" />
@@ -29,28 +73,34 @@ const Navbar = ({ children }) => {
 					</div>
 					<div className="flex-none lg:block">
 						<ul className="menu menu-horizontal">
-							<li tabIndex="0">
-								<a>
-									Jan von Steinberg
-									<svg
-										className="fill-current"
-										xmlns="http://www.w3.org/2000/svg"
-										width="20"
-										height="20"
-										viewBox="0 0 24 24"
-									>
-										<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-									</svg>
-								</a>
-								<ul className="z-50 p-2 border-2 border-primary border-opacity-40 bg-base-100">
-									<li>
-										<a>Negocios</a>
-									</li>
-									<li>
-										<a>Salir</a>
-									</li>
-								</ul>
-							</li>
+							{currentUser ? (
+								<li tabIndex="0">
+									<a>
+										{currentUser.name}
+										<svg
+											className="fill-current"
+											xmlns="http://www.w3.org/2000/svg"
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+										>
+											<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+										</svg>
+									</a>
+									<ul className="z-50 p-2 border-2 border-primary border-opacity-40 bg-base-100">
+										<li>
+											<a>Negocios</a>
+										</li>
+										<li>
+											<a onClick={signOutUser}>Salir</a>
+										</li>
+									</ul>
+								</li>
+							) : (
+								<button onClick={signIn} className="btn">
+									Login
+								</button>
+							)}
 						</ul>
 					</div>
 				</nav>
