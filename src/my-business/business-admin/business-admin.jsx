@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 // Services
 import * as DataService from '../../services';
 
-const Admin = ({}) => {
+const BusinessAdmin = ({}) => {
 	const businessesList = useStoreForApp((store) => store.businesses);
 	const setBusinessesList = useStoreForApp((store) => store.setBusinessesList);
 	const [isAddingNew, setIsAddingNew] = useState(false);
@@ -121,4 +121,4 @@ const Admin = ({}) => {
 	);
 };
 
-export default Admin;
+export default BusinessAdmin;

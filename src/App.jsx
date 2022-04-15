@@ -5,10 +5,10 @@ import './App.css';
 import { Route, Switch } from 'wouter';
 
 // Components
-import Drawer from './components/drawer/Drawer';
-import Navbar from './components/navbar/Navbar';
-import Home from './pages/home/Home';
-import Admin from './pages/admin/Admin';
+import Drawer from './ui/drawer/Drawer';
+import Navbar from './ui/navbar/Navbar';
+import Home from './registers/home/Home';
+import Admin from './my-business/business-admin/business-admin';
 import Reports from './pages/reports/Reports';
 
 const App = () => {

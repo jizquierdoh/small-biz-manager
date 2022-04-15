@@ -24,7 +24,7 @@ const currency = {
 	code: 'COP',
 };
 
-const MainForm = () => {
+const CreateRegister = () => {
 	const {
 		register,
 		formState: { errors },
@@ -131,9 +131,7 @@ const MainForm = () => {
 									{errors.total?.type === 'required' && 'Requerido'}
 								</span>
 							</div>
-							<button
-								className="border border-black shadow btn btn-primary btn-block"
-							>
+							<button className="border border-black shadow btn btn-primary btn-block">
 								Registrar
 							</button>
 						</div>
@@ -144,4 +142,4 @@ const MainForm = () => {
 	);
 };
 
-export default MainForm;
+export default CreateRegister;

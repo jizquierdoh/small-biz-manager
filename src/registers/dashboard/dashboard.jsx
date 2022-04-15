@@ -2,17 +2,17 @@
 import { useStoreForApp } from '../../store';
 
 // Components
-import MainForm from '../main-form/MainForm';
-import RegistersTable from '../registers-table/RegistersTable';
+import CreateRegister from '../create-register/create-register';
+import RegistersTable from '../registers-table/registers-table';
 
-const Main = ({}) => {
+const Dashboard = ({}) => {
 	const currentUser = useStoreForApp((store) => store.currentUser);
 
 	return (
 		<>
 			{currentUser ? (
 				<main className="w-full p-2">
-					<MainForm />
+					<CreateRegister />
 					<RegistersTable />
 				</main>
 			) : (
@@ -24,4 +24,4 @@ const Main = ({}) => {
 	);
 };
 
-export default Main;
+export default Dashboard;

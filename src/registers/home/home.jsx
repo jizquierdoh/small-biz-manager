@@ -1,10 +1,10 @@
 // Components
-import Main from '../../components/main/Main';
+import Dashboard from '../dashboard/dashboard';
 
 const Home = ({}) => {
 	return (
 		<>
-			<Main />
+			<Dashboard />
 		</>
 	);
 };
