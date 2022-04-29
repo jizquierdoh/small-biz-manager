@@ -10,6 +10,7 @@ const BusinessAdmin = ({}) => {
 	const businessesList = useStoreForApp((store) => store.businesses);
 	const setBusinessesList = useStoreForApp((store) => store.setBusinessesList);
 	const [isAddingNew, setIsAddingNew] = useState(false);
+	const [currentUser] = useStoreForApp((store) => [store.currentUser]);
 
 	const {
 		register,
@@ -20,6 +21,7 @@ const BusinessAdmin = ({}) => {
 
 	useEffect(() => {
 		DataService.streamBusinesses(
+			currentUser.id,
 			(querySnapshot) => {
 				const businesses = querySnapshot.docs.map((business) => {
 					return { ...business.data(), id: business.id };

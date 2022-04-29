@@ -4,6 +4,7 @@ import { addRegister } from '../../services';
 
 // Hooks
 import { useForm } from 'react-hook-form';
+import { useStoreForApp } from '../../store';
 
 // Components
 import CurrencyInput from 'react-currency-input-field';
@@ -25,6 +26,7 @@ const currency = {
 };
 
 const CreateRegister = () => {
+	const [currentUser] = useStoreForApp((store) => [store.currentUser]);
 	const {
 		register,
 		formState: { errors },
@@ -34,7 +36,11 @@ const CreateRegister = () => {
 	} = useForm();
 
 	const onSubmit = (formData) => {
-		const newRegister = { ...formData, id: uuidv4() };
+		const newRegister = {
+			...formData,
+			id: uuidv4(),
+			owner_user: currentUser?.id,
+		};
 		addRegister(newRegister);
 		reset();
 	};

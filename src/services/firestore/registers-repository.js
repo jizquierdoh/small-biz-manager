@@ -1,5 +1,5 @@
 import { db } from './firebase'
-import { collection, addDoc, Timestamp, getDocs, orderBy, limit, query, onSnapshot } from 'firebase/firestore'
+import { collection, addDoc, Timestamp, getDocs, orderBy, where, limit, query, onSnapshot } from 'firebase/firestore'
 
 const addRegister = async (register) => {
   const regCollection = collection(db, 'registers');
@@ -17,9 +17,9 @@ const getRegisters = async (howMany) => {
   return await getDocs(registerQuery);
 };
 
-const streamRegisters = (howMany, snapshot, error) => {
+const streamRegisters = (userId, howMany, snapshot, error) => {
   const regCollection = collection(db, 'registers');
-  const registersQuery = query(regCollection, orderBy('date', 'desc'), limit(howMany));
+  const registersQuery = query(regCollection, where('owner_user', '==', userId), orderBy('date', 'desc'), limit(howMany));
   return onSnapshot(registersQuery, snapshot, error);
 };
 
@@ -34,9 +34,9 @@ const addBusiness = async (business) => {
   );
 };
 
-const streamBusinesses = (snapshot, error) => {
+const streamBusinesses = (userId, snapshot, error) => {
   const businessCollection = collection(db, 'businesses');
-  const businessQuery = query(businessCollection, orderBy('createdAt', 'desc'));
+  const businessQuery = query(businessCollection, where('owner_user', '==', userId), orderBy('createdAt', 'desc'));
   return onSnapshot(businessQuery, snapshot, error);
 };
 

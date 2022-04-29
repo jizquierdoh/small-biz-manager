@@ -10,9 +10,11 @@ const lastRegisters = 5;
 const RegistersTable = ({}) => {
 	const list = useStoreForApp((store) => store.lastRegisters);
 	const setRegistersList = useStoreForApp((store) => store.setRegistersList);
+	const [currentUser] = useStoreForApp((store) => [store.currentUser]);
 
 	useEffect(() => {
 		const unsubscribe = DataService.streamRegisters(
+			currentUser.id,
 			lastRegisters,
 			(querySnapshot) => {
 				const registers = querySnapshot.docs.map((reg) => {
