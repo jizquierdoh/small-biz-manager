@@ -1,14 +1,15 @@
 // Imports
+import { useEffect } from 'react';
 import {
 	getAuth,
 	signInWithPopup,
 	signOut,
 	GoogleAuthProvider,
 } from 'firebase/auth';
-import { useStoreForApp } from '../../store';
+import { useStoreForApp } from '../store';
 
 // Icons
-import briefcaseIcon from '../../assets/briefcase-icon.svg';
+import briefcaseIcon from '../assets/briefcase-icon.svg';
 
 const Navbar = ({ children }) => {
 	const [currentUser, setCurrentUser] = useStoreForApp((store) => [
@@ -31,7 +32,7 @@ const Navbar = ({ children }) => {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
 	};
 
@@ -44,6 +45,20 @@ const Navbar = ({ children }) => {
 				console.error(error);
 			});
 	};
+
+	useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setCurrentUser({
+					email: user.email,
+					id: user.uid,
+					name: user.displayName,
+				});
+			} else {
+				setCurrentUser(null);
+			}
+		});
+	}, []);
 
 	return (
 		<>

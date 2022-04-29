@@ -5,8 +5,8 @@ import './App.css';
 import { Route, Switch } from 'wouter';
 
 // Components
-import Drawer from './ui/drawer/Drawer';
-import Navbar from './ui/navbar/Navbar';
+import Drawer from './drawer/Drawer';
+import Navbar from './navbar/Navbar';
 import Home from './registers/home/Home';
 import Admin from './my-business/business-admin/business-admin';
 import Reports from './pages/reports/Reports';
