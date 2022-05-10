@@ -12,9 +12,10 @@ import { useStoreForApp } from '../store';
 import briefcaseIcon from '../assets/briefcase-icon.svg';
 
 const Navbar = ({ children }) => {
-	const [currentUser, setCurrentUser] = useStoreForApp((store) => [
+	const [currentUser, setCurrentUser, clearStore] = useStoreForApp((store) => [
 		store.currentUser,
 		store.setCurrentUser,
+		store.clearStore,
 	]);
 
 	const auth = getAuth();
@@ -39,7 +40,7 @@ const Navbar = ({ children }) => {
 	const signOutUser = () => {
 		signOut(auth)
 			.then(() => {
-				setCurrentUser(null);
+				clearStore();
 			})
 			.catch((error) => {
 				console.error(error);

@@ -36,7 +36,7 @@ const addBusiness = async (business) => {
 
 const streamBusinesses = (userId, snapshot, error) => {
   const businessCollection = collection(db, 'businesses');
-  const businessQuery = query(businessCollection, where('owner_user', '==', userId), orderBy('createdAt', 'desc'));
+  const businessQuery = query(businessCollection, where('owner_user', '==', userId ?? null), orderBy('createdAt', 'desc'));
   return onSnapshot(businessQuery, snapshot, error);
 };
 

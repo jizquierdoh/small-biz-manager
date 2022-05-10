@@ -34,7 +34,12 @@ const BusinessAdmin = ({}) => {
 	}, []);
 
 	const onSubmit = async (data) => {
-		await DataService.addBusiness(data);
+		const newBusiness = {
+			...data,
+			owner_user: currentUser?.id,
+		};
+
+		await DataService.addBusiness(newBusiness);
 		setIsAddingNew(false);
 		reset();
 	};

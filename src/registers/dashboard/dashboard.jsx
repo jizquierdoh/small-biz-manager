@@ -4,16 +4,26 @@ import { useStoreForApp } from '../../store';
 // Components
 import CreateRegister from '../create-register/create-register';
 import RegistersTable from '../registers-table/registers-table';
+import SelectBusiness from '../select-business/select-business';
 
 const Dashboard = ({}) => {
-	const currentUser = useStoreForApp((store) => store.currentUser);
+	const [currentUser, selectedBusinessId] = useStoreForApp((store) => [
+		store.currentUser,
+		store.selectedBusinessId,
+	]);
 
 	return (
 		<>
 			{currentUser ? (
 				<main className="w-full p-2">
-					<CreateRegister />
-					<RegistersTable />
+					{selectedBusinessId ? (
+						<>
+							<CreateRegister />
+							<RegistersTable />
+						</>
+					) : (
+						<SelectBusiness userId={currentUser?.id} />
+					)}
 				</main>
 			) : (
 				<main className="w-full p-2">
