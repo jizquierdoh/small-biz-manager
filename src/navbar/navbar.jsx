@@ -1,41 +1,18 @@
 // Imports
-import { useEffect } from 'react';
-import {
-	getAuth,
-	signInWithPopup,
-	signOut,
-	GoogleAuthProvider,
-} from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { useStoreForApp } from '../store';
 
 // Icons
 import briefcaseIcon from '../assets/briefcase-icon.svg';
 
 const Navbar = ({ children }) => {
-	const [currentUser, setCurrentUser, clearStore] = useStoreForApp((store) => [
+	const [currentUser, clearStore] = useStoreForApp((store) => [
 		store.currentUser,
-		store.setCurrentUser,
 		store.clearStore,
 	]);
 
 	const auth = getAuth();
 	auth.languageCode = 'es';
-	const provider = new GoogleAuthProvider();
-
-	const signIn = () => {
-		signInWithPopup(auth, provider)
-			.then((result) => {
-				const user = result.user;
-				setCurrentUser({
-					email: user.email,
-					id: user.uid,
-					name: user.displayName,
-				});
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	};
 
 	const signOutUser = () => {
 		signOut(auth)
@@ -47,42 +24,32 @@ const Navbar = ({ children }) => {
 			});
 	};
 
-	useEffect(() => {
-		auth.onAuthStateChanged((user) => {
-			if (user) {
-				setCurrentUser({
-					email: user.email,
-					id: user.uid,
-					name: user.displayName,
-				});
-			} else {
-				setCurrentUser(null);
-			}
-		});
-	}, []);
-
 	return (
 		<>
 			<input id="drawerApp" type="checkbox" className="drawer-toggle" />
 			<div className="flex flex-col drawer-content">
 				<nav className="w-full bg-base-300 navbar">
-					<div className="flex-none">
-						<label htmlFor="drawerApp" className="btn btn-square btn-ghost">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								className="inline-block w-6 h-6 stroke-current"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M4 6h16M4 12h16M4 18h16"
-								></path>
-							</svg>
-						</label>
-					</div>
+					{currentUser ? (
+						<div className="flex-none">
+							<label htmlFor="drawerApp" className="btn btn-square btn-ghost">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									className="inline-block w-6 h-6 stroke-current"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M4 6h16M4 12h16M4 18h16"
+									></path>
+								</svg>
+							</label>
+						</div>
+					) : (
+						<></>
+					)}
 					<div className="flex-1">
 						<img src={briefcaseIcon} alt="App Logo" width="38px" />
 						&nbsp; SMALLBIZ APP
@@ -113,9 +80,7 @@ const Navbar = ({ children }) => {
 									</ul>
 								</li>
 							) : (
-								<button onClick={signIn} className="btn">
-									Login
-								</button>
+								<></>
 							)}
 						</ul>
 					</div>

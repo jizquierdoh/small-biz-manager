@@ -69,7 +69,7 @@ const SelectBusiness = ({ userId }) => {
 							</span>
 						</div>
 						<button className="border border-black shadow btn btn-primary btn-block">
-							Registrar
+							Seleccionar
 						</button>
 					</div>
 				</div>

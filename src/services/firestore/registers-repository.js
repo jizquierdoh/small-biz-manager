@@ -17,9 +17,12 @@ const getRegisters = async (howMany) => {
   return await getDocs(registerQuery);
 };
 
-const streamRegisters = (userId, howMany, snapshot, error) => {
+const streamRegisters = (userId, snapshot, error) => {
   const regCollection = collection(db, 'registers');
-  const registersQuery = query(regCollection, where('owner_user', '==', userId), orderBy('date', 'desc'), limit(howMany));
+  const registersQuery =
+    query(regCollection,
+      where('owner_user', '==', userId),
+      orderBy('date', 'desc'));
   return onSnapshot(registersQuery, snapshot, error);
 };
 
