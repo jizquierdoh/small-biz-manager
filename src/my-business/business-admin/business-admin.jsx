@@ -10,7 +10,10 @@ const BusinessAdmin = ({}) => {
 	const businessesList = useStoreForApp((store) => store.businesses);
 	const setBusinessesList = useStoreForApp((store) => store.setBusinessesList);
 	const [isAddingNew, setIsAddingNew] = useState(false);
-	const [currentUser] = useStoreForApp((store) => [store.currentUser]);
+	const [currentUser, setSelectedBusinessId] = useStoreForApp((store) => [
+		store.currentUser,
+		store.setSelectedBusinessId,
+	]);
 
 	const {
 		register,
@@ -42,6 +45,10 @@ const BusinessAdmin = ({}) => {
 		await DataService.addBusiness(newBusiness);
 		setIsAddingNew(false);
 		reset();
+	};
+
+	const onSelectBusiness = (businessId) => {
+		setSelectedBusinessId(businessId);
 	};
 
 	return (
@@ -114,7 +121,12 @@ const BusinessAdmin = ({}) => {
 											<td>
 												<button className="btn btn-primary btn-sm">🔍</button>
 												&nbsp;
-												<button className="btn btn-primary btn-sm">✔</button>
+												<button
+													onClick={() => onSelectBusiness(business.id)}
+													className="btn btn-primary btn-sm"
+												>
+													✔
+												</button>
 											</td>
 										</tr>
 									);
