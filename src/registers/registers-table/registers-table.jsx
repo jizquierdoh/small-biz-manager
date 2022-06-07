@@ -13,8 +13,6 @@ const RegistersTable = ({}) => {
 		store.selectedBusinessId,
 	]);
 
-	console.log(selectedBusinessId, list);
-
 	useEffect(() => {
 		const unsubscribe = DataService.streamRegisters(
 			currentUser.id,
