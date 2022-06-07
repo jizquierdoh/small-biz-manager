@@ -27,6 +27,10 @@ const currency = {
 
 const CreateRegister = () => {
 	const [currentUser] = useStoreForApp((store) => [store.currentUser]);
+	const [selectedBusinessId] = useStoreForApp((store) => [
+		store.selectedBusinessId,
+	]);
+
 	const {
 		register,
 		formState: { errors },
@@ -40,6 +44,7 @@ const CreateRegister = () => {
 			...formData,
 			id: uuidv4(),
 			owner_user: currentUser?.id,
+			businessId: selectedBusinessId,
 		};
 		addRegister(newRegister);
 		reset();
