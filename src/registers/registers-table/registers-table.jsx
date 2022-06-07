@@ -13,8 +13,9 @@ const RegistersTable = ({}) => {
 		store.selectedBusinessId,
 	]);
 
+	console.log(selectedBusinessId, list);
+
 	useEffect(() => {
-		console.log(selectedBusinessId);
 		const unsubscribe = DataService.streamRegisters(
 			currentUser.id,
 			(querySnapshot) => {
@@ -46,7 +47,7 @@ const RegistersTable = ({}) => {
 					<tbody>
 						{list
 							.filter(
-								(reg) => reg.businessId.trim() === selectedBusinessId.trim()
+								(reg) => reg !== null && reg.businessId === selectedBusinessId
 							)
 							.map((register) => {
 								return (
