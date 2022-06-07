@@ -8,9 +8,9 @@ import { Route, Switch } from 'wouter';
 import { useStoreForApp } from './store';
 
 // Components
-import Drawer from './drawer/Drawer';
-import Navbar from './navbar/Navbar';
-import Home from './registers/home/Home';
+import Drawer from './drawer/drawer';
+import Navbar from './navbar/navbar';
+import Home from './registers/home/home';
 import Admin from './my-business/business-admin/business-admin';
 import Reports from './pages/reports/Reports';
 
