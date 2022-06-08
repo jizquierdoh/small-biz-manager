@@ -1,0 +1,1 @@
+export * from './firestore/registers-repository';
