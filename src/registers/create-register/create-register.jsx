@@ -54,7 +54,7 @@ const CreateRegister = () => {
 		<>
 			<div>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="w-9/12 mx-auto mt-2 bg-white card bg-opacity-20 drop-shadow-xl">
+					<div className="w-full mx-auto mt-2 bg-white card bg-opacity-20 drop-shadow-xl">
 						<div className="card-body">
 							{/* date field*/}
 							<div className="form-control">

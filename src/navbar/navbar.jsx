@@ -50,15 +50,15 @@ const Navbar = ({ children }) => {
 					) : (
 						<></>
 					)}
-					<div className="flex-1">
+					<div className="flex-1 text-lg font-bold">
 						<img src={briefcaseIcon} alt="App Logo" width="38px" />
-						&nbsp; SMALLBIZ APP
+						&nbsp; <span>SMALLBIZ APP</span>
 					</div>
 					<div className="flex-none lg:block">
 						<ul className="menu menu-horizontal">
 							{currentUser ? (
 								<li tabIndex="0">
-									<a>
+									<a className="text-sm font-semibold">
 										{currentUser.name}
 										<svg
 											className="fill-current"

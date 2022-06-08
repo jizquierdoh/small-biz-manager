@@ -19,7 +19,7 @@ const App = () => {
 
 	return (
 		<>
-			<div className="h-screen mx-auto drawer lg:w-2/3 sm:w-full">
+			<div className="w-full h-screen mx-auto drawer">
 				<Navbar>
 					<Switch>
 						<Route path="/">

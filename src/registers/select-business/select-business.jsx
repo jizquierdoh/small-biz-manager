@@ -41,7 +41,7 @@ const SelectBusiness = ({ userId }) => {
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="w-9/12 mx-auto mt-2 bg-white card bg-opacity-20 drop-shadow-xl">
+				<div className="w-full mx-auto mt-2 bg-white card bg-opacity-20 drop-shadow-xl">
 					<div className="card-body">
 						{/* businessId field*/}
 						<div className="form-control">
@@ -55,10 +55,16 @@ const SelectBusiness = ({ userId }) => {
 								}`}
 								{...register('businessId', { required: true })}
 							>
-								<option value="">Seleccionar</option>
+								<option className="text-lg font-bold" value="">
+									Seleccionar
+								</option>
 								{businessesList.map((business) => {
 									return (
-										<option key={business.id} value={business.id}>
+										<option
+											className="text-lg font-semibold"
+											key={business.id}
+											value={business.id}
+										>
 											{business.name}
 										</option>
 									);
